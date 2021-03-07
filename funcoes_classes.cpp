@@ -402,40 +402,80 @@ void lista_playlist::listar_playlist(){
 }
 
 // Pega as informações da nova música e chama a função de adicionar na lista de músicas
-void lista_playlist::adicionar_musica(lista_musica **musi, int n){
+void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=NULL){
 
     // Variáveis para armazenar as informações da música
     string nome_mus, autor_mus;
 
-    // Variável para verificar se tem a música na playlist do sistema
-    int existe = 0;
-            
-	// Limpa o buffer
-	cin.ignore();
-    // Pega o nome da música
-    cout << "\nDigite o nome da musica: ";
-    getline(cin, nome_mus);
+    // Se não for sobrecarregado
+    if(tipo == 1){
+        // Variável para verificar se tem a música na playlist do sistema
+        int existe = 0;
+                
+        // Limpa o buffer
+        cin.ignore();
+        // Pega o nome da música
+        cout << "\nDigite o nome da musica: ";
+        getline(cin, nome_mus);
 
-    // Pega o nome do autor
-    cout << "Digite o nome do autor da musica: ";
-    getline(cin, autor_mus);
+        // Pega o nome do autor
+        cout << "Digite o nome do autor da musica: ";
+        getline(cin, autor_mus);
 
-    if(n==0){
-        // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
-        musi[n]->inserir(nome_mus, autor_mus);
-
-        cout << "\n--- Musica adicionada com SUCESSO!\n";
-    }else{
-        // Chama a função de buscar muisca na playlist do sistema
-        existe = musi[0]->buscar(nome_mus, autor_mus);
-        // Se for 0, ou seja não existir
-        if(existe==0){
-            cout << "A música não existe no sistema\nAdicione primeiro no sistema para poder adicionar em outras playlists";
-        }else{
-            // Chama a função de buscar muisca na playlist do sistema
+        if(n==0){
+            // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
             musi[n]->inserir(nome_mus, autor_mus);
 
             cout << "\n--- Musica adicionada com SUCESSO!\n";
+        }else{
+            // Chama a função de buscar muisca na playlist do sistema
+            existe = musi[0]->buscar(nome_mus, autor_mus);
+            // Se for 0, ou seja não existir
+            if(existe==0){
+                cout << "A música não existe no sistema\nAdicione primeiro no sistema para poder adicionar em outras playlists";
+            }else{
+                // Chama a função de buscar muisca na playlist do sistema
+                musi[n]->inserir(nome_mus, autor_mus);
+
+                cout << "\n--- Musica adicionada com SUCESSO!\n";
+            }
+        }
+    // Se for sobrecarregado
+    }else if(tipo == 2){
+
+        // Cria um objeto para ser a lista das novas músicas a serem adicionadas
+        lista_musica lista_aux;
+        
+        // Se for NULL quer dizer que não adicionaremos uma playlist toda
+        if(playlist_adi==NULL){
+            char escolha='s';
+
+            do{
+                // Limpa o buffer
+                cin.ignore();
+                // Pega o nome da música
+                cout << "\nDigite o nome da musica: ";
+                getline(cin, nome_mus);
+
+                // Pega o nome do autor
+                cout << "Digite o nome do autor da musica: ";
+                getline(cin, autor_mus);
+
+                // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
+                lista_aux.inserir(nome_mus, autor_mus);
+
+                cout << "Deseja adicionar outra música a lista de adição?(s/n)";
+                cin >> escolha;
+
+            }while(escolha!='n');
+
+            // Chama a função sobrecarregada da lista de música para inserir, passando a lista que será adicionada
+            musi[n]->inserir(&lista_aux);
+        // Se for diferente de NULL quer dizer que adicionaremos uma playlist toda
+        }else{
+
+            // Chama a função sobrecarregada da lista de música para inserir, passando a lista que será adicionada
+            musi[n]->inserir(musi[playlist_adi]);
         }
     }
 
@@ -444,37 +484,78 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n){
 }
 
 // Pega as informações da música e chama a função de remover na lista de músicas
-void lista_playlist::remover_musica(lista_musica **musi, int n, int tam){
+void lista_playlist::remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=NULL){
 
     // Variáveis para armazenar as informações da música
     string nome_mus, autor_mus;
 
-    // Variável para verificar se tem a música na playlist do sistema
-    int existe = 0;
+    // Se for NULL quer dizer que não removeremos uma playlist toda
+    if(tipo == 1){
 
-    // Pega o nome da música
-    cout << "\nDigite o nome da musica a ser deletada: ";
-    getline(cin, nome_mus);
+        // Variável para verificar se tem a música na playlist do sistema
+        int existe = 0;
 
-    // Pega o nome do autor
-    cout << "Digite o nome do autor da musica a ser deletada: ";
-    getline(cin, autor_mus);
+        // Pega o nome da música
+        cout << "\nDigite o nome da musica a ser deletada: ";
+        getline(cin, nome_mus);
 
-    // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
-    musi[n]->deletar(nome_mus, autor_mus);
+        // Pega o nome do autor
+        cout << "Digite o nome do autor da musica a ser deletada: ";
+        getline(cin, autor_mus);
 
-    // Se for na playlist do sistema
-    if(n==0){
-        // Percorre todas as listas
-        for(int i=1; i<tam; i++){
-            // Chama a função de buscar musica na playlist do sistema
-            existe = musi[i]->buscar(nome_mus, autor_mus);
-            // Se existir, ou seja diferente de 0
-            if(existe!=0){
-                // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
-                musi[i]->deletar(nome_mus, autor_mus);
-                cout << "\nMúsica removida em outra playlist\n";
+        // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
+        musi[n]->deletar(nome_mus, autor_mus);
+
+        // Se for na playlist do sistema
+        if(n==0){
+            // Percorre todas as listas
+            for(int i=1; i<tam; i++){
+                // Chama a função de buscar musica na playlist do sistema
+                existe = musi[i]->buscar(nome_mus, autor_mus);
+                // Se existir, ou seja diferente de 0
+                if(existe!=0){
+                    // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
+                    musi[i]->deletar(nome_mus, autor_mus);
+                    cout << "\nMúsica removida em outra playlist\n";
+                }
             }
+        }
+    // Se for diferente de NULL quer dizer que removeremos uma playlist toda
+    }else if(tipo == 2){
+
+        // Cria um objeto para ser a lista das novas músicas a serem removidas
+        lista_musica lista_aux;
+
+        if(playlist_adi == NULL){
+            char escolha='s';
+
+            do{
+                // Limpa o buffer
+                cin.ignore();
+                // Pega o nome da música
+                cout << "\nDigite o nome da musica para ser removida: ";
+                getline(cin, nome_mus);
+
+                // Pega o nome do autor
+                cout << "Digite o nome do autor da musica para ser removida: ";
+                getline(cin, autor_mus);
+
+                // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
+                lista_aux.inserir(nome_mus, autor_mus);
+
+                cout << "Deseja adicionar outra música a essa lista de remoção?(s/n)";
+                cin >> escolha;
+
+            }while(escolha!='n');
+
+            // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
+            musi[n]->deletar(&lista_aux);
+
+            cout << "Os elementos que existiam na lista foram excluídos\n";
+        }else{
+
+            // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
+            musi[n]->deletar(musi[playlist_adi]);
         }
     }
 

@@ -55,6 +55,8 @@ class lista_musica{
 
         // Versão sobrecarregada
         void deletar(lista_musica *lista);
+
+        lista_musica operator+(lista_musica &adicionada);
 };
 
 // Classe para representar uma playlist no sistema
@@ -92,21 +94,16 @@ class lista_playlist{
 
         void listar_playlist();
 
-        void adicionar_musica(lista_musica **musi, int n);
-
-        void remover_musica(lista_musica **musi, int n, int tam);
-
         void listar_musica(lista_musica **musi, int n, string nome_play);
 
         void mover_musica(lista_musica **musi, int n);
 
         void tocar_musica(lista_musica **musi, int n, string nome_play, int prox);
 
-        // Versão sobrecarregada
-        void remover_musica(lista_musica **musi, int n);
+        // Versões alteradas
+        void adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=NULL);
 
-        // Versão sobrecarregada
-        void adicionar_musica(lista_musica **musi, int n, int tipo);
+        void remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=NULL);
 
 };
 

@@ -9,6 +9,37 @@ using namespace std;
 // Versão sobrecarregada de adicionar músicas na lista
 void lista_musica::inserir(lista_musica *lista){
 
+    // Cria objetos para percorrer a lista e auxiliar na remoção
+	musica *atual=new musica;
+	musica *anterior=new musica;
+
+    // Inicia do head da lista principal
+    atual = this->head;
+    anterior = this->head;
+
+    // Percorre até achar o último
+    while(atual!=NULL){
+        anterior=atual;
+        atual = atual->next;
+    }
+
+    // Liga o ultimo nó da lista principal com a nova lista
+    anterior->next = lista->head;
+
+    // Percorre até achar o último
+    while(anterior->next!=NULL){
+        anterior = anterior->next;
+    }
+
+    // Passa o tail para o último
+    tail = anterior;
+    tail->next = anterior;
+
+}
+
+// Versão sobrecarregada de adicionar músicas na lista
+void lista_musica::inserir(lista_musica *lista){
+
     // Cria um novo objeto da lista principal
     musica *atual = new musica;
 
@@ -32,56 +63,6 @@ void lista_musica::inserir(lista_musica *lista){
     tail = atual;
     tail->next = atual;
 
-}
-
-// Pega as informações da nova música e chama a função de adicionar na lista de músicas
-void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo){
-
-    // Variáveis para armazenar as informações da música
-    string nome_mus, autor_mus;
-
-    // Cria um objeto para ser a lista das novas músicas a serem adicionadas
-    lista_musica lista_aux;
-
-    string nome_playlist;
-
-    if(tipo==1){
-
-    char escolha='s';
-
-    do{
-        // Limpa o buffer
-        cin.ignore();
-        // Pega o nome da música
-        cout << "\nDigite o nome da musica: ";
-        getline(cin, nome_mus);
-
-        // Pega o nome do autor
-        cout << "Digite o nome do autor da musica: ";
-        getline(cin, autor_mus);
-
-        // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
-        lista_aux.inserir(nome_mus, autor_mus);
-
-        cout << "Deseja adicionar outra música a lista de adição?(s/n)";
-        cin >> escolha;
-
-    }while(escolha!='n');
-
-    // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
-    musi[n]->inserir(&lista_aux);
-
-    }else if(tipo==2){
-        // Pega o nome da playlist
-        cout << "\nQual o nome da playlist para adicionar: ";
-        getline(cin, nome_playlist1);
-
-        // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
-        pos_playlist = playlists.encontrar_playlist(nome_playlist1);
-    }
-
-	cout << "\n--- Tecle ENTER para continuar... ";
-	getchar();
 }
 
 // Versão sobrecarregada de excluir músicas na lista
@@ -116,42 +97,40 @@ void lista_musica::deletar(lista_musica *lista){
     }
 }
 
-// Pega as informações da música e chama a função de remover na lista de músicas
-void lista_playlist::remover_musica(lista_musica **musi, int n){
+// Função para o operador +
+lista_musica lista_musica::operator+(lista_musica &adicionada){
 
-    // Variáveis para armazenar as informações das músicas
-    string nome_mus, autor_mus;
+    // Cria o objeto que será concatenado
+    lista_musica concatenada;
 
-    // Cria um objeto para ser a lista das novas músicas a serem removidas
-    lista_musica lista_aux;
+    // Copia o head
+    concatenada.head = this->head;
 
-    char escolha='s';
+    // Copia o tail
+    concatenada.tail = this->tail;
 
-    do{
-        // Limpa o buffer
-        cin.ignore();
-        // Pega o nome da música
-        cout << "\nDigite o nome da musica para ser removida: ";
-        getline(cin, nome_mus);
+    // Chama a função sobrecarregada de inserir uma lista 
+    concatenada.inserir(&adicionada);
 
-        // Pega o nome do autor
-        cout << "Digite o nome do autor da musica para ser removida: ";
-        getline(cin, autor_mus);
-
-        // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
-        lista_aux.inserir(nome_mus, autor_mus);
-
-        cout << "Deseja adicionar outra música a essa lista de remoção?(s/n)";
-        cin >> escolha;
-
-    }while(escolha!='n');
-
-    // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
-    musi[n]->deletar(&lista_aux);
-
-    cout << "Os elementos que existiam na lista foram excluídos\n";
-
-	cout << "\n--- Tecle ENTER para continuar... ";
-	//getchar();
+    // Retorna a lista concatenada
+    return concatenada;
 }
 
+// Função para o operador >>
+lista_musica lista_musica::operator+(lista_musica &adicionada){
+
+    // Cria o objeto que será concatenado
+    lista_musica concatenada;
+
+    // Copia o head
+    concatenada.head = this->head;
+
+    // Copia o tail
+    concatenada.tail = this->tail;
+
+    // Chama a função sobrecarregada de inserir uma lista 
+    concatenada.inserir(&adicionada);
+
+    // Retorna a lista concatenada
+    return concatenada;
+}
