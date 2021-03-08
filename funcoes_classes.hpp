@@ -57,6 +57,8 @@ class lista_musica{
         void deletar(lista_musica *lista);
 
         lista_musica operator+(lista_musica &adicionada);
+
+        std::ostream& operator<<(std::ostream &nome, std::ostream &autor, lista_musica **musi, int n);
 };
 
 // Classe para representar uma playlist no sistema

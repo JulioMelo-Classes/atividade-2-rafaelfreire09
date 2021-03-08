@@ -116,7 +116,59 @@ lista_musica lista_musica::operator+(lista_musica &adicionada){
     return concatenada;
 }
 
-// Função para o operador >>
+// Função para o operador <<
+std::ostream& operator<<(std::ostream &posi, lista_musica **musi){
+
+    // Se for nullptr
+    if(nullptr){
+        cout << "\nNada alterado\n";
+    }else{
+
+        // Variáveis para armazenar as informações da música
+        string nome_mus, autor_mus;
+
+        // Limpa o buffer
+        cin.ignore();
+        // Pega o nome da música
+        cout << "\nDigite o nome da musica para ser adicionado: ";
+        getline(cin, nome_mus);
+
+         // Pega o nome do autor
+        cout << "Digite o nome do autor da musica para ser adicionado: ";
+        getline(cin, autor_mus);
+
+        // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
+        musi[]->inserir(nome_mus, autor_mus);
+    }
+}
+
+// Função para o operador <<
+std::ostream& operator>>(std::ostream &posi, lista_musica **musi){
+
+    // Se for nullptr
+    if(nullptr){
+        cout << "\nNada alterado\n";
+    }else{
+
+        // Variáveis para armazenar as informações da música
+        string nome_mus, autor_mus;
+
+        // Limpa o buffer
+        cin.ignore();
+        // Pega o nome da música
+        cout << "\nDigite o nome da musica para ser adicionado: ";
+        getline(cin, nome_mus);
+
+         // Pega o nome do autor
+        cout << "Digite o nome do autor da musica para ser adicionado: ";
+        getline(cin, autor_mus);
+
+        // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
+        musi[]->inserir(nome_mus, autor_mus);
+    }
+}
+
+// Função para o operador +
 lista_musica lista_musica::operator+(lista_musica &adicionada){
 
     // Cria o objeto que será concatenado
@@ -134,3 +186,4 @@ lista_musica lista_musica::operator+(lista_musica &adicionada){
     // Retorna a lista concatenada
     return concatenada;
 }
+

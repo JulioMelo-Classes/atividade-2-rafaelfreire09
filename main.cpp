@@ -23,6 +23,9 @@ int main(){
     // Variável
     int pos_playlist, pos_playlist2;
 
+    // Variáveis para guardar os nomes das playlists
+    string conca_playlist1, conca_playlist2;
+
     // Variável
 	string nome_playlist1;
 
@@ -503,7 +506,7 @@ int main(){
                 do{
                     cout
                     << ">>> Gerenciar operações sobrecarregadas."<<"\n"
-                    << "1 - Operador + 1(lista ligada)"<<"\n"
+                    << "1 - Operador +(lista ligada)"<<"\n"
                     << "2 - Operador de extração >>(lista ligada)"<<"\n"
                     << "3 - Operador de inserção <<(lista ligada)"<<"\n"
                     << "4 - Operador + 1(playlist)"<<"\n"
@@ -528,9 +531,6 @@ int main(){
                     case '1':
                         // Chama a função de listar as playlists da lista encadeada
                         playlists.listar_playlist();
-
-                        // Variáveis para guardar os nomes das playlists
-                        string conca_playlist1, conca_playlist2;
 
                         int pos_playlist1=0, pos_playlist2=0;
 
@@ -561,18 +561,56 @@ int main(){
                         lista_musica lista_concatenada = listas[pos_playlist1] + listas[pos_playlist2];
                     break;
                     case '2':
-
+                        cout << pos_playlist;
                     break;
                     case '3':
 
                     break;
                     case '4':
+                        // Chama a função de listar as playlists da lista encadeada
+                        playlists.listar_playlist();
 
+                        int pos_playlist1=0, pos_playlist2=0;
+
+                        do{
+                            // Pega o nome da playlist
+                            cout << "Qual a primeira playlist para unir: ";
+                            getline(cin, conca_playlist1);
+
+                            // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                            pos_playlist1 = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist1==0){
+                                cout << "\nDigite uma playlist valida!\n";
+                            }
+                        }while(pos_playlist1==0);
+
+                        do{
+                            // Pega o nome da playlist
+                            cout << "Qual a segunda playlist para unir: ";
+                            getline(cin, conca_playlist1);
+
+                            // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                            pos_playlist2 = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist2==0){
+                                cout << "\nDigite uma playlist valida!\n";
+                            }
+                        }while(pos_playlist2==0);
+
+                        lista_musica lista_concatenada = listas[pos_playlist1] + listas[pos_playlist2];
                     break;
                     case '5':
 
                     break;
                     case '6':
+
+                    break;
+                    case '7':
+
+                    break;
+                    case '8':
+
+                    break;
+                    case '9':
 
                     break;
                 }
