@@ -25,7 +25,7 @@ class musica{
 
 // Classe para representar a lista encadeada de músicas no sistema
 class lista_musica{
-    private:
+    public:
         // Cria o head e tail da lista
 		musica *head, *tail;
 	public:
@@ -50,7 +50,7 @@ class lista_musica{
 
         void tocar(int n);
 
-        // Versão sobrecarregada
+        // Versôes sobrecarregadas
         void inserir(lista_musica *lista);
 
         void deletar(lista_musica *lista);
@@ -59,7 +59,15 @@ class lista_musica{
 
         lista_musica operator+(lista_musica &adicionada);
 
-        std::ostream& operator<<(std::ostream &nome, std::ostream &autor, lista_musica **musi, int n);
+        void operator>>(musica *&removido);
+
+        void operator<<(musica *&novo);
+
+        lista_musica operator+(musica *&novo);
+
+        lista_musica operator-(lista_musica const &segunda);
+
+        lista_musica operator-(musica *&removido);
 
         
 };
@@ -80,7 +88,7 @@ class playlist{
 // Classe para representar a lista encadeada de playlists no sistema
 class lista_playlist{
 
-    private:
+    public:
         // Cria o head e tail da lista
         playlist *head2, *tail2;
     public:
@@ -106,9 +114,9 @@ class lista_playlist{
         void tocar_musica(lista_musica **musi, int n, string nome_play, int prox);
 
         // Versões alteradas
-        void adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=NULL);
+        void adicionar_musica(lista_musica **musi, int n, int tipo, int playlist_adi);
 
-        void remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=NULL);
+        void remover_musica(lista_musica **musi, int n, int tam,  int tipo, int playlist_adi);
 
         // Versões sobrecarregadas
 

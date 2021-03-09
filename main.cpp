@@ -20,8 +20,13 @@ int main(){
     // Variável para controlar as musicas que seram tocadas
     int prox;
 
-    // Variável
+    // Variável para identificar a localização de uma playlist
     int pos_playlist, pos_playlist2;
+
+    int caso_playlist;
+
+    // Variáveis para armazenar as informações da música
+    string nome_mus, autor_mus;
 
     // Variáveis para guardar os nomes das playlists
     string conca_playlist1, conca_playlist2;
@@ -35,6 +40,16 @@ int main(){
     // Cria o objeto da classe de lista de musicas
     lista_musica **listas;
     listas = new lista_musica*[1];
+
+    // Variável para os construtores cópia
+    lista_musica **listas2;
+    lista_playlist nova_lista_playlist;
+
+    // Variável para as operações sobrecarregadas
+    lista_musica nova_lista;
+
+    // Variável para o operador << 
+    musica *aux = new musica;
 
     // Cria a primeira playlist, que será a principal com todas as músicas
     listas[i] = new lista_musica();
@@ -125,7 +140,7 @@ int main(){
                             playlists.listar_musica(listas, 0, todas_musicas);
 
                             // Chama a função de adicionar música, passando a lista de músicas e a posição 0
-                            playlists.adicionar_musica(listas, 0);
+                            playlists.adicionar_musica(listas, 0, tipo, caso_playlist);
 
                             // Chama a função de listar músicas, passando a lista de músicas, a posição 0 e o nome da playlist para listar
                             playlists.listar_musica(listas, 0, todas_musicas);
@@ -145,7 +160,7 @@ int main(){
                             playlists.listar_musica(listas, 0, todas_musicas);
 
                             // Chama a função de remover, passando a lista de músicas e a posição 0
-                            playlists.remover_musica(listas, 0, i);
+                            playlists.remover_musica(listas, 0, i, tipo, caso_playlist);
 
                             // Chama a função de listar músicas, passando a lista de músicas, a posição 0 e o nome da playlist para listar
                             playlists.listar_musica(listas, 0, todas_musicas);
@@ -337,7 +352,7 @@ int main(){
                             // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
                             pos_playlist = playlists.encontrar_playlist(nome_playlist1);
                             // Chama a função de adicionar música, passando a lista de músicas e a posição da playlist
-                            playlists.adicionar_musica(listas, pos_playlist-1);
+                            playlists.adicionar_musica(listas, pos_playlist-1, tipo, caso_playlist);
 
                             // Chama a função para perguntar se deseja fazer outra alteração no mesmo menu
                             esc = outra_alteracao(n_esc);
@@ -353,7 +368,7 @@ int main(){
                             // Chama a função de listar as músicas da playlist, passando o objeto com todas as listas, a posição e o nome da playlist
                             playlists.listar_musica(listas, pos_playlist-1, nome_playlist1);
                             // Chama a função de remover, passando a lista de músicas e a posição da playlist
-                            playlists.remover_musica(listas, pos_playlist-1, i);
+                            playlists.remover_musica(listas, pos_playlist-1, i, tipo, caso_playlist);
 
                             // Chama a função para perguntar se deseja fazer outra alteração no mesmo menu
                             esc = outra_alteracao(n_esc);
@@ -455,15 +470,22 @@ int main(){
                         // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
                         pos_playlist = playlists.encontrar_playlist(nome_playlist1);
 
-                        // Chama a função de adicionar música, passando a lista de músicas e a posição da playlist
-                        playlists.adicionar_musica(listas, pos_playlist-1, tipo);
+                        // Chama a função de adicionar música, passando a lista de músicas, a posição, e dois identificadores
+                        playlists.adicionar_musica(listas, pos_playlist-1, tipo, caso_playlist);
                     break;
                     case '2':
 
+                        // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                        pos_playlist = playlists.encontrar_playlist(nome_playlist1);
+
+                        // Chama a função de remover música, passando a listas de músicas, a posição, e dois identificadores
+                        playlists.remover_musica(listas, pos_playlist-1, i, tipo, caso_playlist);
                     break;
                     case '3':
+
                         i++;
-                        listas[i] = 
+                        // Chama o construtor cópia
+                        listas[i] = listas[pos_playlist-1];
 
                     break;
                     case '4':
@@ -475,14 +497,23 @@ int main(){
                         // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
                         pos_playlist2 = playlists.encontrar_playlist(nome_playlist1);
 
+                        caso_playlist = 1;
                         // Chama a função de adicionar música, passando a lista de músicas e a posição da playlist
-                        playlists.adicionar_musica(listas, pos_playlist-1, tipo, pos_playlist2);
+                        playlists.adicionar_musica(listas, pos_playlist-1, tipo, caso_playlist);
                     break;
                     case '5':
 
+                        // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                        pos_playlist = playlists.encontrar_playlist(nome_playlist1);
+
+                        caso_playlist = 1;
+                        // Chama a função de remover música, passando a listas de músicas, a posição, e dois identificadores
+                        playlists.remover_musica(listas, pos_playlist, i, tipo, caso_playlist);
+
                     break;
                     case '6':
-                        lista_playlist nova_playlist = playlists;
+                        // Chama o construtor cópia
+                        nova_lista_playlist = playlists;
                     break;
                 }
             break;
@@ -534,7 +565,7 @@ int main(){
                         // Chama a função de listar as playlists da lista encadeada
                         playlists.listar_playlist();
 
-                        int pos_playlist1=0, pos_playlist2=0;
+                        pos_playlist=0, pos_playlist2=0;
 
                         do{
                             // Pega o nome da playlist
@@ -542,11 +573,11 @@ int main(){
                             getline(cin, conca_playlist1);
 
                             // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
-                            pos_playlist1 = playlists.encontrar_playlist(conca_playlist1);
-                            if(pos_playlist1==0){
+                            pos_playlist = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist==0){
                                 cout << "\nDigite uma playlist valida!\n";
                             }
-                        }while(pos_playlist1==0);
+                        }while(pos_playlist==0);
 
                         do{
                             // Pega o nome da playlist
@@ -560,19 +591,41 @@ int main(){
                             }
                         }while(pos_playlist2==0);
 
-                        lista_musica lista_concatenada = listas[pos_playlist1] + listas[pos_playlist2];
+                        //nova_lista = listas[pos_playlist] + listas[pos_playlist2];
                     break;
                     case '2':
-                        cout << pos_playlist;
+                        // Verifica se a playlist está vazia
+                        if(listas[pos_playlist]->head == NULL){
+                            cout << "\nNada feito\n";
+                        }else{
+                            //listas[pos_playlist] >> aux;
+                        }
                     break;
                     case '3':
+                        // Limpa o buffer
+                        cin.ignore();
+                        // Pega o nome da música
+                        cout << "\nDigite o nome da musica(digite 'nullptr' para ser nulo): ";
+                        getline(cin, nome_mus);
 
+                        // Pega o nome do autor
+                        cout << "Digite o nome do autor da musica(digite 'nullptr' para ser nulo): ";
+                        getline(cin, autor_mus);
+
+                        /*
+                        if(nome_mus=='nullptr' || autor_mus=='nullptr'){
+                            cout << "\nNada feito\n";
+                        }else{
+                            //listas[pos_playlist] << aux;
+                        }
+                        */
+                    
                     break;
                     case '4':
                         // Chama a função de listar as playlists da lista encadeada
                         playlists.listar_playlist();
 
-                        int pos_playlist1=0, pos_playlist2=0;
+                        pos_playlist=0, pos_playlist2=0;
 
                         do{
                             // Pega o nome da playlist
@@ -580,11 +633,11 @@ int main(){
                             getline(cin, conca_playlist1);
 
                             // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
-                            pos_playlist1 = playlists.encontrar_playlist(conca_playlist1);
-                            if(pos_playlist1==0){
+                            pos_playlist = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist==0){
                                 cout << "\nDigite uma playlist valida!\n";
                             }
-                        }while(pos_playlist1==0);
+                        }while(pos_playlist==0);
 
                         do{
                             // Pega o nome da playlist
@@ -598,22 +651,74 @@ int main(){
                             }
                         }while(pos_playlist2==0);
 
-                        lista_musica lista_concatenada = listas[pos_playlist1] + listas[pos_playlist2];
+                        //nova_lista = listas[pos_playlist] + listas[pos_playlist2];
                     break;
                     case '5':
 
+                        // nova_lista = listas[pos_playlist] + aux;
+
                     break;
                     case '6':
+                        // Chama a função de listar as playlists da lista encadeada
+                        playlists.listar_playlist();
 
+                        pos_playlist=0, pos_playlist2=0;
+
+                        do{
+                            // Pega o nome da playlist
+                            cout << "Qual a primeira playlist para fazer a diferença: ";
+                            getline(cin, conca_playlist1);
+
+                            // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                            pos_playlist = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist==0){
+                                cout << "\nDigite uma playlist valida!\n";
+                            }
+                        }while(pos_playlist==0);
+
+                        do{
+                            // Pega o nome da playlist
+                            cout << "Qual a segunda playlist para fazer a diferença: ";
+                            getline(cin, conca_playlist1);
+
+                            // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                            pos_playlist2 = playlists.encontrar_playlist(conca_playlist1);
+                            if(pos_playlist2==0){
+                                cout << "\nDigite uma playlist valida!\n";
+                            }
+                        }while(pos_playlist2==0);
+
+                        // nova_lista = listas[pos_playlist] - listas[pos_playlist2];
                     break;
                     case '7':
-
+                        // nova_lista = listas[pos_playlist] - aux;
                     break;
                     case '8':
-
+                        // Verifica se a playlist está vazia
+                        if(listas[pos_playlist]->head == NULL){
+                            cout << "\nNada feito\n";
+                        }else{
+                            //listas[pos_playlist] >> aux;
+                        }
                     break;
                     case '9':
+                        // Limpa o buffer
+                        cin.ignore();
+                        // Pega o nome da música
+                        cout << "\nDigite o nome da musica(digite 'nullptr' para ser nulo): ";
+                        getline(cin, nome_mus);
 
+                        // Pega o nome do autor
+                        cout << "Digite o nome do autor da musica(digite 'nullptr' para ser nulo): ";
+                        getline(cin, autor_mus);
+
+                        /*
+                        if(nome_mus=='nullptr' || autor_mus=='nullptr'){
+                            cout << "\nNada feito\n";
+                        }else{
+                            //listas[pos_playlist] << aux;
+                        }
+                        */
                     break;
                 }
             break;

@@ -402,7 +402,7 @@ void lista_playlist::listar_playlist(){
 }
 
 // Pega as informações da nova música e chama a função de adicionar na lista de músicas
-void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=NULL){
+void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=0){
 
     // Variáveis para armazenar as informações da música
     string nome_mus, autor_mus;
@@ -447,7 +447,7 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, in
         lista_musica lista_aux;
         
         // Se for NULL quer dizer que não adicionaremos uma playlist toda
-        if(playlist_adi==NULL){
+        if(playlist_adi == 0){
             char escolha='s';
 
             do{
@@ -484,7 +484,7 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, in
 }
 
 // Pega as informações da música e chama a função de remover na lista de músicas
-void lista_playlist::remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=NULL){
+void lista_playlist::remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=0){
 
     // Variáveis para armazenar as informações da música
     string nome_mus, autor_mus;
@@ -526,7 +526,7 @@ void lista_playlist::remover_musica(lista_musica **musi, int n, int tam,  int ti
         // Cria um objeto para ser a lista das novas músicas a serem removidas
         lista_musica lista_aux;
 
-        if(playlist_adi == NULL){
+        if(playlist_adi == 0){
             char escolha='s';
 
             do{
