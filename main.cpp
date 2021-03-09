@@ -462,6 +462,8 @@ int main(){
 
                     break;
                     case '3':
+                        i++;
+                        listas[i] = 
 
                     break;
                     case '4':
@@ -480,7 +482,7 @@ int main(){
 
                     break;
                     case '6':
-
+                        lista_playlist nova_playlist = playlists;
                     break;
                 }
             break;

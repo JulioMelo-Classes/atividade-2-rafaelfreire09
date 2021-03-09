@@ -53,12 +53,15 @@ class lista_musica{
         // Versão sobrecarregada
         void inserir(lista_musica *lista);
 
-        // Versão sobrecarregada
         void deletar(lista_musica *lista);
+
+        lista_musica(const lista_musica &nova_playlist);
 
         lista_musica operator+(lista_musica &adicionada);
 
         std::ostream& operator<<(std::ostream &nome, std::ostream &autor, lista_musica **musi, int n);
+
+        
 };
 
 // Classe para representar uma playlist no sistema
@@ -106,6 +109,10 @@ class lista_playlist{
         void adicionar_musica(lista_musica **musi, int n, int tipo=1, int playlist_adi=NULL);
 
         void remover_musica(lista_musica **musi, int n, int tam,  int tipo=1, int playlist_adi=NULL);
+
+        // Versões sobrecarregadas
+
+        lista_playlist(const lista_playlist &nova_playlist);
 
 };
 

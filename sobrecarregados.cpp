@@ -1,4 +1,4 @@
-#include "funcoes_classes.hpp"
+    #include "funcoes_classes.hpp"
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -95,6 +95,17 @@ void lista_musica::deletar(lista_musica *lista){
 
         atual = atual->next;
     }
+}
+
+lista_musica::lista_musica(const lista_musica &nova_playlist){
+    head = nova_playlist.head;
+    tail = nova_playlist.tail;
+}
+
+
+lista_playlist::lista_playlist(const lista_playlist &nova_playlist){
+    head2 = nova_playlist.head2;
+    tail2 = nova_playlist.tail2;
 }
 
 // Função para o operador +
