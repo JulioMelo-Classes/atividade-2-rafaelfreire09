@@ -12,7 +12,7 @@ int main(){
     char n_esc='0', n_esc2='0';
     char esc='s';
 
-    int tipo=0;
+    int tipo=1;
 
     // Variável de contador de listas de músicas
     int i=0;
@@ -23,7 +23,7 @@ int main(){
     // Variável para identificar a localização de uma playlist
     int pos_playlist, pos_playlist2;
 
-    int caso_playlist;
+    int caso_playlist=0;
 
     // Variáveis para armazenar as informações da música
     string nome_mus, autor_mus;
@@ -32,7 +32,7 @@ int main(){
     string conca_playlist1, conca_playlist2;
 
     // Variável
-	string nome_playlist1;
+	string nome_playlist1, nome_playlist2;
 
     // Cria o objeto da classe de lista de playlsts
     lista_playlist playlists;
@@ -97,7 +97,7 @@ int main(){
             << "\t5.1 - Operador de extração >>(playlist)"<<"\n"
             << "\t5.2 - Operador de inserção <<(playlist)"<<"\n"
             << "6 - Encerrar o programa."<<"\n\n"
-            << ">>> Tecle 1, 2, 3 ou 4 para escolher: ";
+            << ">>> Tecle 1, 2, 3, 4, 5 ou 6 para escolher: ";
             
             // Recebe o comando
             cin >> n_esc;
@@ -105,7 +105,7 @@ int main(){
             //Limpar a tela no windows ou linux
             cout << "\033[2J\033[1;1H";
         // Só sai do laço se escolher entre 1 e 4
-        } while(n_esc<48 && n_esc>51);
+        } while(n_esc<48 && n_esc>54);
 
         switch (n_esc){
             case '1':
@@ -443,16 +443,19 @@ int main(){
                     }
                 }while(pos_playlist==0);
 
+                // Limpar a tela no windows ou linux
+				cout << "\033[2J\033[1;1H";
+
                 do{
                     cout
-                    << ">>> Gerenciar funções sobrecarregadas."<<"\n"
-                    << "1 - Adicionar elementos."<<"\n"
-                    << "2 - Remover elementos."<<"\n"
-                    << "3 - Construtor cópia."<<"\n"
-                    << "4 - Adicionar músicas."<<"\n"
-                    << "5 - Remover músicas."<<"\n"
-                    << "6 - Construtor cópia."<<"\n"
-                    << ">>> Tecle 1, 2, 3, 4, 5 ou 6 para escolher: ";
+                    << "\n>>> Gerenciar funções sobrecarregadas em -> "<< nome_playlist1 <<"\n"
+                    << "1 - Adicionar elementos(lista ligada)"<<"\n"
+                    << "2 - Remover elementos(lista ligada)"<<"\n"
+                    << "3 - Construtor cópia(lista ligada)"<<"\n"
+                    << "4 - Adicionar músicas(playlist)"<<"\n"
+                    << "5 - Remover músicas(playlist)"<<"\n"
+                    << "6 - Construtor cópia(playlist)"<<"\n"
+                    << "\n>>> Tecle 1, 2, 3, 4, 5 ou 6 para escolher: ";
 
                     // Recebe o comando
                     cin >> n_esc2;
@@ -490,23 +493,31 @@ int main(){
                     break;
                     case '4':
 
-                        // Pega o nome da playlist
-                        cout << "\nQual o nome da playlist para adicionar: ";
-                        getline(cin, nome_playlist1);
+                        pos_playlist2=0;
+                        do{
+                            // Limpa o buffer
+                            cin.ignore();
 
-                        // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
-                        pos_playlist2 = playlists.encontrar_playlist(nome_playlist1);
+                            // Pega o nome da playlist
+                            cout << "\nQual o nome da playlist para adicionar: ";
+                            getline(cin, nome_playlist2);
 
-                        caso_playlist = 1;
+                            // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
+                            pos_playlist2 = playlists.encontrar_playlist(nome_playlist2);
+                            if(pos_playlist2==0){
+                                cout << "\nDigite uma playlist valida!\n";
+                            }
+                        }while(pos_playlist2==0);
+
+                        caso_playlist = pos_playlist;
                         // Chama a função de adicionar música, passando a lista de músicas e a posição da playlist
-                        playlists.adicionar_musica(listas, pos_playlist-1, tipo, caso_playlist);
+                        playlists.adicionar_musica(listas, pos_playlist2-1, tipo, caso_playlist);
                     break;
                     case '5':
 
                         // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
                         pos_playlist = playlists.encontrar_playlist(nome_playlist1);
-
-                        caso_playlist = 1;
+                        
                         // Chama a função de remover música, passando a listas de músicas, a posição, e dois identificadores
                         playlists.remover_musica(listas, pos_playlist, i, tipo, caso_playlist);
 
@@ -536,9 +547,12 @@ int main(){
                     }
                 }while(pos_playlist==0);
 
+                // Limpar a tela no windows ou linux
+				cout << "\033[2J\033[1;1H";
+
                 do{
                     cout
-                    << ">>> Gerenciar operações sobrecarregadas."<<"\n"
+                    << "\n>>> Gerenciar operações sobrecarregadas em -> "<< nome_playlist1 <<"\n"
                     << "1 - Operador +(lista ligada)"<<"\n"
                     << "2 - Operador de extração >>(lista ligada)"<<"\n"
                     << "3 - Operador de inserção <<(lista ligada)"<<"\n"
@@ -548,7 +562,7 @@ int main(){
                     << "7 - Operador - 2(playlist)"<<"\n"
                     << "8 - Operador de extração >>(playlist)"<<"\n"
                     << "9 - Operador de inserção <<(playlist)"<<"\n"
-                    << ">>> Tecle 1, 2, 3, 4, 5, 6, 7, 8 ou 9 para escolher: ";
+                    << "\n>>> Tecle 1, 2, 3, 4, 5, 6, 7, 8 ou 9 para escolher: ";
 
                     // Recebe o comando
                     cin >> n_esc2;
@@ -569,7 +583,7 @@ int main(){
 
                         do{
                             // Pega o nome da playlist
-                            cout << "Qual a primeira playlist para concatenar: ";
+                            cout << "\nQual a primeira playlist para concatenar: ";
                             getline(cin, conca_playlist1);
 
                             // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
@@ -581,7 +595,7 @@ int main(){
 
                         do{
                             // Pega o nome da playlist
-                            cout << "Qual a segunda playlist para concatenar: ";
+                            cout << "\nQual a segunda playlist para concatenar: ";
                             getline(cin, conca_playlist1);
 
                             // Chama a função de encontar, passando o nome da playlist e retornando a posição na lista
@@ -592,6 +606,8 @@ int main(){
                         }while(pos_playlist2==0);
 
                         //nova_lista = listas[pos_playlist] + listas[pos_playlist2];
+
+                        nova_lista.listar();
                     break;
                     case '2':
                         // Verifica se a playlist está vazia
@@ -721,6 +737,9 @@ int main(){
                         */
                     break;
                 }
+            break;
+            case 6: 
+                break;
             break;
         }
 

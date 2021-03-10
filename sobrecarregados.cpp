@@ -47,9 +47,17 @@ void lista_musica::inserir(lista_musica *lista){
     // Inicia do head
     atual = head;
 
-    // Percorre até achar o último
-    while(atual->next!=NULL){
-        atual = atual->next;
+    // Se a lista for vazia
+    if(head==NULL){
+        // Passa o head para o da lista
+        head = lista->head;
+        atual = lista->head;
+    // Se a lista não for
+    }else{
+        // Percorre até achar o último
+        while(atual->next!=NULL){
+            atual = atual->next;
+        }
     }
 
     // Liga o ultimo nó da lista principal com a nova lista
@@ -63,6 +71,8 @@ void lista_musica::inserir(lista_musica *lista){
     // Passa o tail para o último
     tail = atual;
     tail->next = atual;
+    
+    cout << "\nChegou3\n";
 
 }
 
@@ -89,7 +99,7 @@ void lista_musica::deletar(lista_musica *lista){
         // Chama a função de buscar musica na lista
         existe = this->buscar(nome_mus, autor_mus);
         // Se existir
-        if(existe==1){
+        if(existe!=0){
             // Deleta a música
             this->deletar(nome_mus, autor_mus);
         }
@@ -132,10 +142,6 @@ lista_musica lista_musica::operator+(lista_musica &adicionada){
 // Função para o operador << 
 void lista_musica::operator<<(musica *&novo){
 
-    // Se o ponteiro for nullptr
-    if(novo==nullptr){
-        cout << "\nNada feito\n";
-    }else{
         // Variáveis para armazenar as informações da música
         string nome_mus, autor_mus;
 
@@ -164,7 +170,6 @@ void lista_musica::operator<<(musica *&novo){
             tail->next = novo;
             tail = novo;
         }
-    }
 }
 
 // Função para o operador >>

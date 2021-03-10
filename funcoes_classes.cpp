@@ -409,6 +409,8 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, in
 
     // Se não for sobrecarregado
     if(tipo == 1){
+
+        cout << "\nChegou1\n";
         // Variável para verificar se tem a música na playlist do sistema
         int existe = 0;
                 
@@ -448,6 +450,8 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, in
         
         // Se for NULL quer dizer que não adicionaremos uma playlist toda
         if(playlist_adi == 0){
+
+            cout << "\nChegou2\n";
             char escolha='s';
 
             do{
@@ -464,18 +468,22 @@ void lista_playlist::adicionar_musica(lista_musica **musi, int n, int tipo=1, in
                 // Chama a função da lista de música para inserir, passando o nome da música e o nome do autor
                 lista_aux.inserir(nome_mus, autor_mus);
 
-                cout << "Deseja adicionar outra música a lista de adição?(s/n)";
+                cout << "Deseja adicionar outra música a lista de adição?(s/n): ";
                 cin >> escolha;
 
             }while(escolha!='n');
 
             // Chama a função sobrecarregada da lista de música para inserir, passando a lista que será adicionada
             musi[n]->inserir(&lista_aux);
+
+            musi[n]->listar();
         // Se for diferente de NULL quer dizer que adicionaremos uma playlist toda
         }else{
 
             // Chama a função sobrecarregada da lista de música para inserir, passando a lista que será adicionada
             musi[n]->inserir(musi[playlist_adi]);
+
+            musi[n]->listar();
         }
     }
 
@@ -551,11 +559,13 @@ void lista_playlist::remover_musica(lista_musica **musi, int n, int tam,  int ti
             // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
             musi[n]->deletar(&lista_aux);
 
-            cout << "Os elementos que existiam na lista foram excluídos\n";
+            musi[n]->listar();
         }else{
 
             // Chama a função da lista de música para deletar, passando o nome da música e o nome do autor
             musi[n]->deletar(musi[playlist_adi]);
+
+            musi[n]->listar();
         }
     }
 
