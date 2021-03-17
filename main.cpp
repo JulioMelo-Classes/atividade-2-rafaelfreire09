@@ -6,7 +6,86 @@
 
 using namespace std;
 
+/*
+void f2(Playlist l){
+  l.list.remove(1);
+  cout<<"lista l na funcao apos remocação"<<endl;
+  l.list.show(l.list.head, 1);
+}
+*/
+void f(lista_musica l){
+  l.deletar("Just Dance", "Lagy Gaga");
+  cout<<"lista l na funcao apos remocação"<<endl;
+  l.listar();
+}
+
+
+void testes(){
+  lista_musica l1;
+  l1.inserir("Just Dance", "Lagy Gaga");
+  l1.inserir("Shallow", "Lagy Gaga");
+  l1.inserir("Where is the love", "BEP");
+  l1.inserir("I gotta feeling", "BEP");
+
+	lista_musica lr;
+	//lr.inserir(&l1);
+  /*Q1a 0.3, vi que vc implementou  mas não consigo listar a cópia!*/
+//	lr.listar();
+		
+	
+	/*Q2b 1, ok*/
+	lista_musica l2;
+  l2.inserir("Just Dance", "Lagy Gaga");
+
+	//l1.deletar(&l2);
+	//l1.listar();
+
+	/*Q3c 0.5, vc implementou mas da forma como está as copias ficam interligadas com a principal*/
+	//f(l1);
+	//l1.listar();
+
+	/*Q2a 0.5, loop infinito no caso abaixo (depois de listar) */
+	//lista_musica lr2 = l1 + l2;
+	//lr2.listar();
+
+	/*Q2b 0.8, o operador não deveria perguntar ao usuário qualquer coisa...*/
+	//musica *m = new musica;
+	//m->nome = "n1";
+	//m->autor = "a1";
+	//l2 << m;
+	//l2.listar();
+
+	/*Q2c 0.5, vc removeu mas não preencheu no operando recebido*/
+	//l2 >> m;
+	//l2.listar();
+	//cout << m->nome<<endl;
+	
+	/*Q3a e Q3b 0.3 e 1 inferido da classe lista_musica*/
+	
+	/*Q3c 0*/
+
+	/*Q4a 0.5 inferido de lista_musica*/
+
+	/*Q4b 0.8, o operador não deveria perguntar ao usuário qualquer coisa*/
+	//lista_musica lr3 = l1 + m;
+	//lr3.listar();
+
+	/*Q4c 0.5, vc implementou mas a operação abaixo mostra que não está 100% ainda*/	
+	//lista_musica lr4 = l1 - l2; 
+	//lr4.listar();
+
+	/*Q4d 0.8, não deveria perguntar qualquer coisa ao usuário*/
+	
+	/*Q4e e f 0*/
+
+	exit(1);
+}
+
 int main(){
+		testes();
+
+
+		
 
     // Variáveis para escolha no menu
     char n_esc='0', n_esc2='0';

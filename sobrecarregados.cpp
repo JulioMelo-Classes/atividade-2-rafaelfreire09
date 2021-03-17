@@ -146,18 +146,18 @@ void lista_musica::operator<<(musica *&novo){
         string nome_mus, autor_mus;
 
         // Limpa o buffer
-        cin.ignore();
+     //   cin.ignore();
         // Pega o nome da música
-        cout << "\nDigite o nome da musica para ser adicionado: ";
-        getline(cin, nome_mus);
+//        cout << "\nDigite o nome da musica para ser adicionado: ";
+ //       getline(cin, nome_mus);
 
          // Pega o nome do autor
-        cout << "Digite o nome do autor da musica para ser adicionado: ";
-        getline(cin, autor_mus);
+  //      cout << "Digite o nome do autor da musica para ser adicionado: ";
+   ///     getline(cin, autor_mus);
 
         // Copia as informações para o objeto
-        novo->nome = nome_mus;
-        novo->autor = autor_mus;
+     //   novo->nome = nome_mus;
+      //  novo->autor = autor_mus;
         novo->next = NULL;
 
         // Se não tiver nenhuma música
